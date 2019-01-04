@@ -1,0 +1,13 @@
+{
+    "name": "sqyuser/trebdirect_trebsqy",
+    "authors": [
+        {
+            "name": "brajesh.kumar",
+            "email": "brajesh.kumar@squareyards.co.in"
+        }
+    ],
+    "require": {
+	     "mongodb/mongodb": "^1.4",
+        "ulrichsg/getopt-php": "^3.0"
+    }
+}
