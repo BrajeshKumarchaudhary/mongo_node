@@ -1,0 +1,355 @@
+{'img_sync':0,'Pix_updt':{ $exists: true, $ne: '' }}
+{'image_active':{ $exists: false, $ne: '' },'data_active':1}
+
+
+{'img_ref.oid':'5c260ebeb1241a4e58004d0c','_id':{$ne:ObjectId('5c260ebeb1241a4e58004d0c')}}
+
+
+db.trebdirect.aggregate([
+    {"$group" : {_id:"$created_time", count:{$sum:1}}},
+'$project':{
+'_id':1.0
+}
+
+])
+
+
+db.getCollection('trebsqy').find({"img_url.img_path":/null/i}).count()
+db.getCollection('trebsqy').find({"img_url.img_path":{$not:/.*null.*/}}).limit(1)
+
+
+
+C3423583
+
+
+db.getCollection('trebdirect').find({'img_download':1,'img_sync':0,'is_imported':1,'Pix_updt' : {'$exists': true, '$ne' : ''}, 'pClassName' => {'$exists': true, '$ne':'DeletedProperty'}}).limit(1).forEach(function(doc){
+print(doc);
+//db.getCollection('trebdirect').save(doc);
+})
+
+
+
+
+C4276158
+
+
+db.getCollection('trebdirect').find({
+    'img_download':1,
+    'img_sync':0,
+    'is_imported':1,
+    'Pix_updt' : {'$exists': true, '$ne' : ''}, 
+    'pClassName': {'$exists': true, '$ne':'DeletedProperty'}}).forEach(function(doc){        
+db.getCollection('trebsqy').update({'Ml_num':doc.Ml_num,'data_active':1},{'$set':{'img_sync':0,'img_download':1,'img_url':doc.img_url}});
+})
+
+5c260ed4b1241a4e580054c5
+ObjectId("5c260ed4b1241a4e580054c5")
+
+
+let counter = 0;
+db.myCol.find({
+'img_download':1,
+    'img_sync':0,
+    'is_imported':1,
+    'Pix_updt' : {'$exists': true, '$ne' : ''}, 
+    'pClassName': {'$exists': true, '$ne':'DeletedProperty'}
+
+
+}).sort({$natural:1}).limit(1000000).skip(counter).forEach(function(document){
+    counter++;
+    document.test_value = "just testing" + counter
+    db.myCol.save(document)
+});
+
+{'Ml_num':'C4276251'}
+5c260ebeb1241a4e58004d0a
+5c260ebeb1241a4e58004d0a
+
+
+//duplicate issue
+{'Ml_num':'C3829301'}
+
+C4053055
+C4053085
+C4341456
+25
+/myS3Bucket/Orig/34236/image-C3423583-1-1551075647.jpeg
+26
+/myS3Bucket/Orig/37437/image-C3743662-1-1551167148.jpeg
+
+/myS3Bucket/Orig/37437/image-C3743694-1-1551167154.jpeg
+
+
+27
+/myS3Bucket/Orig/43049/image-C4304869-1-1551243339.jpeg
+/myS3Bucket/Orig/43049/image-C4304882-1-1551243830.jpeg
+/myS3Bucket/Orig/43068/image-C4306772-1-1551243940.jpeg
+/myS3Bucket/Orig/43085/image-C4308486-1-1551244076.jpeg
+/myS3Bucket/Orig/43296/image-E4329606-1-1551246182.jpeg
+/myS3Bucket/Orig/43376/image-E4337561-1-1551246301.jpeg
+
+
+14705---Condo
+18881---Residential
+13139---Commercial
+
+
+db.getCollection('trebsqy').find({'img_url' : {'$exists' : false},'image_active':{'$exists':false},'data_active':1,'date.Pix_updt' : {'$exists': true, '$ne' : ''}, 'pClassName' : {'$exists': true, '$ne':'DeletedProperty'}}).count()
+
+
+
+
+db.getCollection('trebsqy').find({'Ml_num':'E4330388'})
+db.getCollection('trebsqy').find({'img_download':1,'img_sync':0}).count()
+
+
+28
+
+/myS3Bucket/Orig/43359/image-C4335945-1-1551328231.jpeg
+
+1
+/myS3Bucket/Orig/43622/image-E4362160-1-1551415243.jpeg
+
+2019-01-22 07:46:25.0
+2019-02-19 16:06:15.0
+
+db.collection.aggregate([
+{$group:{"_id":"$data_active","name":{$first:"$data_active"},"count":{$sum:1}}},
+{$match:{"count":{$gt:1}}},
+{$project:{"Ml_num":1,"_id":0}},
+{$group:{"_id":null,"duplicateNames":{$push:"$name"}}},
+{$project:{"_id":0,"duplicateNames":1}}
+])
+
+/myS3Bucket/Orig/43499/image-N4349948-1-1551354702.jpeg
+
+
+//for duplicate issue
+{'Ml_num':'C4328133'}
+2019-02-28 00:19:43.0
+2019-03-01 00:47:22.0
+
+/myS3Bucket/Orig/43627/image-E4362659-1-1551415545.jpeg
+
+/myS3Bucket/images/thumbs/35256/150X150/4301--Toronto-Ontario-M5H4G5-C3525642-15515104585555.jpg
+
+
+
+ $group_by_app = [['$match' => ['data_active' => 1]],['$group' => ['_id' => '$Ml_num', 'count' => ['$sum' => 1]]]];
+
+print_r($item['Ml_num']);
+            $updateResult = $trebsqy->updateOne(
+                    ['Ml_num' => $item['_id']], ['$set' => ['data_active' => 0]], ['upsert' => true]
+
+
+
+
+db.getCollection('trebsqy').find({"sync_date":/^19-02-28/i,'data_active':1}).skip(1800).limit(20).forEach(function(doc1)
+{
+    db.getCollection('trebsqy').find({'Ml_num':doc1.Ml_num}).forEach(function(doc)
+    {
+        print(doc.Ml_num+' '+doc.data_active)
+    }
+        
+})
+
+
+
+db.getCollection('trebsqy').find({"img_url.img_path":/null/i}).limit(100).forEach(function(doc)
+{
+    db.getCollection('trebsqy').updateOne({'Ml_num':doc.Ml_num},{$set:{'img_sync':-1,'upsert':true}})
+}
+)
+
+/C4293660
+2018-11-02 14:02:32.0
+2019-02-28 22:39:37.0
+
+
+
+
+// deleted query
+
+
+db.getCollection('trebdirect').find({'pClassName':'DeletedProperty'}).forEach(function(doc)
+{
+    db.getCollection('trebsqy').find({'Ml_num':doc.Ml_num}).forEach(function(doc1)
+    {
+        print(doc1)
+    }
+    )
+}
+)
+
+db.getCollection('trebsqy').find({'Status':'A','data_active':1}).skip(3).limit(1).forEach(function(doc)
+{
+    print(doc.Ml_num)
+    var Status1={
+        Status:doc.Status
+        }
+   db.getCollection('trebsqy').updateOne({'Ml_num':doc.Ml_num,'data_active':1},{$set:{'Status':Status1}})
+}
+)
+
+
+db.getCollection('trebsqy').find({'pClassName':'CommercialProperty','Status' :'U','data_active':1}).count()
+
+
+
+db.getCollection('trebsqy').find({'image_active':1}).count()
+
+
+
+
+
+
+db.getCollection('trebsqy').find({'pClassName':'CommercialProperty','Status':{'$exists': true}}).forEach(function(doc)
+{
+    
+    //print(doc.Ml_num);
+    var Status1={
+        Status:doc.Status
+        }
+       
+   db.getCollection('trebsqy').updateOne({'_id':doc._id},{$set:{'Status':Status1}})
+}
+)
+
+//  filter for count
+db.getCollection('trebsqy').find({'pClassName':{$eq:'ResidentialProperty'},'data_active':1,'Status.Status':"A",'img_url':{$exists:true,$ne:''},'S_r':'Lease'}).count()
+
+
+//
+
+db.getCollection('trebsqy').find({'pClassName':{$ne:'ResidentialProperty'},'data_active':1,'Status.Status':"A",'img_url':{$exists:true,$ne:''},"price.Lp_dol":{$gt:'1500'},'S_r':'Lease'}).count()
+
+
+//
+db.getCollection('trebsqy').find({'data_active':1,'Status.Status':"A",'S_r':'Sale','price.Lp_dol':{$gt:'400000'}}).count()
+2019-03-06 00:11:14.0
+2019-03-06 00:11:14.0
+
+
+2018-11-07 15:36:35.0
+2018-11-07 15:36:35.0
+
+
+/myS3Bucket/Orig/43143/image-N4314346-1-1551855342.jpeg
+/myS3Bucket/images/original/31330/image-C3132974-1-1550145408.jpeg
+
+
+1--Durham-Ontario-L1G1Z4-E4362659-15515081484013.jpg
+
+W4366029
+db.getCollection('trebsqy').find({'pClassName':'ResidentialProperty','image_active':1}).count()
+db.getCollection('trebsqy').find({'img_sync':-1}).count()
+db.getCollection('trebsqy').find({'data_active':1,'latlong_active':1}).count()
+db.getCollection('trebsqy').find({"img_url.img_path":/null/i}).count()
+
+
+
+2019-02-17 07:41:42.0
+2019-02-17 07:41:42.0
+N4361429
+
+images/optimized_orig/42623/1610-1BloorStE-Toronto-Ontario-M4W1A9-C4262263-15503170995208.jpg
+/myS3Bucket/images/thumbs/42623/150X150/1610-1BloorStE-Toronto-Ontario-M4W1A9-C4262263-15503171125266.jpg
+
+
+
+
+
+
+
+var cursor = db.getCollection('trebsqy').find({'pClassName':'CommercialProperty','Status':{'$exists':true},'data_active':1});
+while(cursor.hasNext()) {
+    print(tojson(cursor.next()))
+}
+// Status issue
+db.getCollection('trebdirect').find({'pClassName':'CommercialProperty'}).skip(1000).limit(1).forEach(function(doc)
+{
+    //print(doc.Timestamp_sql)
+    db.getCollection('trebsqy').find({'updated_timestamp':doc.Timestamp_sql,'Status':{'$exists':false},'Ml_num':doc.Ml_num}).forEach(function(doc1)
+    {
+        doc1.Status1=
+        {
+            'Status':doc.Status
+        }
+//delete doc1.Ml_num;
+        print(doc1)
+    }
+    
+    )
+}    
+)
+
+
+db.getCollection('trebsqy').find({'img_download':1,'img_sync':0,'pClassName':'ResidentialProperty','data_active':1}).count()
+db.getCollection('trebsqy').find({'images':{'$exists':true},'img_sync':1}).count()
+
+
+
+db.getCollection('trebsqy').find({"img_url.img_path":/null/i,'img_sync':0}).limit(80).forEach(function(doc)
+{
+    doc.img_sync=-1
+    db.getCollection('trebsqy').save(doc)
+}
+)
+
+db.getCollection('trebsqy').find({'img_download':1,'img_sync':1,'pClassName':'ResidentialProperty','data_active':1,'images':{'$eq':null}}).count()
+
+//total active record
+db.getCollection('trebsqy').find({'img_sync':1,'data_active':1,'images':{'$exists':true},'images':{'$ne':null}}).count()
+
+//update
+db.getCollection('trebsqy').find({'data_active':1,'pClassName':'ResidentialProperty','images':{'$eq':null},'img_sync':1}).count()
+db.getCollection('trebsqy').find({{updated_timestamp:{'$gte':2019-03-01 00:05:08.0}}).count()
+
+db.getCollection('trebsqy').find({updated_timestamp:{'$gte':'2019-03-01 00:05:08.0'},'data_active':1,'pClassName':'CommercialProperty','images':{'$exists':true}}).count()
+
+
+//tommorrow
+db.getCollection('trebsqy').find({'img_download':1,'img_sync':0,'data_active':1}).count()
+
+
+
+
+
+db.getCollection('trebsqy').find({'data_active':1,'images':{'$exists':true},'images':{'$ne':null}}).limit(100).forEach(function(doc)
+{
+    var str=doc.images[0].s3_img_name;
+    // Check for white space
+    
+    if(/\s/.test(str)){
+    print(doc.Ml_num);
+}
+else
+{
+ print(doc.images[0].s3_img_name);    
+}
+
+}
+)
+
+// call view helper in .ctp cake php file
+$this->ImgUrl->ImgUrl('fullwidth/43535/91baldryave-york-ontario-l6a4x9-n4353500-15524008122379.jpeg', 'jpeg','thumbmini');
+
+
+
+//aggregation
+
+
+db.orders.aggregate([
+                     { $match: { status: "A" } },
+                     { $group: { _id: "$cust_id", total: { $sum: "$amount" } } },
+                     { $sort: { total: -1 } }
+                   ])
+//find revision data by date
+db.getCollection('trebsqy').find({'data_active':1,'revision_date':/26-03-2019 /}).count()
+
+//find sync data by date
+db.getCollection('trebsqy').find({'data_active':1,'sync_date':/26-03-2019 /}).count()
+<delete><query>*:*</query></delete>
+
+
+

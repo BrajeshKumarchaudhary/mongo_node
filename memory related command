@@ -1,0 +1,39 @@
+
+Memory related Command
+free-see memory space
+vmstat- virtual memory space
+vmstat -d --Reports disk statistics
+vmstat -s --Displays the amount of memory used and available
+top --command displays all the currently running process in the system
+top -H --Threads-mode operation
+    Displays individual thread that are currently in the system. Without this command 
+option, a summation of all thread in each process is displayed.
+
+/proc/meminfo ---This file contains all the data about the memory usage
+htop ----htop is an interactive process viewer
+
+networking related command
+ping: The ping command is used to check if a remote system is running or up
+host: This command is used to obtain network address information about a remote system connected to your network
+syntax-host www.google.com
+
+finger: One can obtain information about the user on its network and the who command to see what users are currently online on your system
+Syntax:
+$ finger www.ABC.com
+
+tracerouter: This command is use to track the sequence of computer networks. 
+netstat: This command is used to check the status of ports whether they are open, closed, waiting and masquerade connections
+Syntax:
+$ netstat 
+
+dig: dig(Domain Information Groper) query DNS related information like a record, cname, mxrecord etc
+Syntax:
+$ dig www.google.com
+
+hostname: This command is used to see the hostname of your computer.You can change hostname permanently in etc/sysconfig/network. After changing the hostname you need to reboot the computer
+nslookup: You can use nslookup(name server lookup) command to find out DNS related query or testing and troubleshooting DNS server.
+Syntax:
+$ nslookup google.com 
+
+
+
