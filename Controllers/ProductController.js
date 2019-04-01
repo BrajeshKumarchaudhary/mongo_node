@@ -8,13 +8,14 @@ var client = new SolrNode({
 var product = {
     Home: function (req, res)
     {
-        var strQuery = client.query().q('eid:sqy_1N');
+        var strQuery = client.query().q('eid:C4175421');
         client.search(strQuery, function (err, result) {
             if (err) {
                 console.log(err);
                 return;
             }
-            return result.Response;
+//            console.log(result.response);
+            return result.response;
         });
     }
 };

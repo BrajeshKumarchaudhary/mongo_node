@@ -5,4 +5,14 @@ db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function() {
   console.log('connected successfully');
 });
-exports.mongo=db;
+
+var n='wrgrfvyfv';
+if(Nan.n)
+{
+    console.log('ok');
+}
+else
+{
+    console.log('error');
+}
+exports.m = db;
