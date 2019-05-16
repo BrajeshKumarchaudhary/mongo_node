@@ -9,8 +9,14 @@
     "cookie-parser": "~1.4.3",
     "debug": "~2.6.9",
     "ejs": "~2.5.7",
+    "elasticsearch": "^16.0.0",
     "express": "~4.16.0",
     "http-errors": "~1.6.2",
-    "morgan": "~1.9.0"
+    "mongodb": "^3.2.4",
+    "mongoose": "^5.5.8",
+    "morgan": "~1.9.0",
+    "mysql": "^2.17.1",
+    "solr": "^0.3.0",
+    "solr-node": "^1.2.1"
   }
 }
