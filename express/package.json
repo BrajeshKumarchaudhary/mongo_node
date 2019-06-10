@@ -18,5 +18,8 @@
     "mysql": "^2.17.1",
     "solr": "^0.3.0",
     "solr-node": "^1.2.1"
+  },
+  "devDependencies": {
+    "nodemon": "^1.19.1"
   }
 }

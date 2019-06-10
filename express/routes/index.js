@@ -8,7 +8,7 @@ router.get('/', function (req, res, next) {
 
 
 router.get('/name', function (req, res, next) {
-    res.send("brajesh kumar");
+    res.send("brajesh kumar chaudhary");
 });
 /*
  * Dynamic route
@@ -44,9 +44,36 @@ router.use('/things', function(req, res, next){
  * 
  */
 router.get('/dynamic_view', function(req, res){
-   res.render('dynamic', {
+   res.render('index', {
       name: "TutorialsPoint", 
-      url:"http://www.tutorialspoint.com"
+      url:"http://www.tutorialspoint.com",
+      title:'test_page'
    });
 });
+
+//async  test(params, callBack) {
+//    var myInit = {
+//      method: 'GET',
+//      headers: {
+//        'Accept': 'application/json',
+//        'Content-Type': 'application/json'
+//      },
+//      body: JSON.stringify(params),
+//    };
+//    callBack(await callService('url', myInit));
+//  }
+//async  callService(url, params) {
+//    return new Promise((resolve, reject) => {
+//      fetch(url, params)
+//        .then((response) =>
+//          response.json()
+//        )
+//        .then((responseJson) => {
+//          resolve(responseJson);
+//        }).catch((reject) => {
+//          console.error(reject);
+//        })
+//    });
+//  }
+
 module.exports = router;
