@@ -308,6 +308,14 @@ db.getCollection('trebsqy').find({{updated_timestamp:{'$gte':2019-03-01 00:05:08
 db.getCollection('trebsqy').find({updated_timestamp:{'$gte':'2019-03-01 00:05:08.0'},'data_active':1,'pClassName':'CommercialProperty','images':{'$exists':true}}).count()
 
 
+//mongo_import
+mongoimport -d db_name -c collection_name --type csv --file filename
+.csv --headerline --host hostname:portnumber --authenticationDatabase admin --username 'iamauser' --password 'pwd123'
+
+
+
+
+
 //tommorrow
 db.getCollection('trebsqy').find({'img_download':1,'img_sync':0,'data_active':1}).count()
 
@@ -349,7 +357,468 @@ db.getCollection('trebsqy').find({'data_active':1,'revision_date':/26-03-2019 /}
 
 //find sync data by date
 db.getCollection('trebsqy').find({'data_active':1,'sync_date':/26-03-2019 /}).count()
+
+//delete all solr core data 
 <delete><query>*:*</query></delete>
+
+//accureacy
+Ml_num-S4398945
+
+//groupby
+db.trebdirect.aggregate([
+    {"$group" : {_id:"$Lsc", count:{$sum:1}}}
+])
+
+$query = [['$match' => ['key' => "propertyTypes"]],
+                ['$unwind' => '$value'],
+                ['$project' => ['_id' => 0, 'ptype' => '$value.ptype', 'type' => '$value.type']]
+            ];
+            $result = $collection->aggregate($query);
+            foreach ($result as $entry)
+            {
+                $data=$entry->getArrayCopy();
+                print_r($data);
+            }
+            die();
+
+
+//geospatial Query
+Insertion format
+<field>: { type: <GeoJSON type> , coordinates: <coordinates> }
+example
+location: {
+      type: "Point",
+      coordinates: [-73.856077, 40.848447]
+}
+
+
+
+
+db.sample.find(
+   {
+     location: {
+       $geoWithin: {
+          $geometry: {
+             type : "Polygon" ,
+             coordinates: [ 
+              [
+              [ 0, 0 ], 
+              [ 3, 6 ],
+              [ 6, 1 ], 
+              [ 0, 0 ] ]
+              ]
+          }
+       }
+     }
+   }
+)
+/**
+
+db.users.aggregate([
+
+    // Join with user_info table
+    {
+        $lookup:{
+            from: "userinfo",       // other table name
+            localField: "userId",   // name of users table field
+            foreignField: "userId", // name of userinfo table field
+            as: "user_info"         // alias for userinfo table
+        }
+    },
+    {   $unwind:"$user_info" },     // $unwind used for getting data in object or for one record only
+
+    // Join with user_role table
+    {
+        $lookup:{
+            from: "userrole", 
+            localField: "userId", 
+            foreignField: "userId",
+            as: "user_role"
+        }
+    },
+    {   $unwind:"$user_role" },
+
+    // define some conditions here 
+    {
+        $match:{
+            $and:[{"userName" : "admin"}]
+        }
+    },
+
+    // define which fields are you want to fetch
+    {   
+        $project:{
+            _id : 1,
+            email : 1,
+            userName : 1,
+            userPhone : "$user_info.phone",
+            role : "$user_role.role",
+        } 
+    }
+]);
+***/
+db.trebsqy.aggregate([
+
+    // Join with user_info table
+    {
+        $lookup:{
+            from: "locationMaster",       // other table name
+            localField: "Area.Area",   // name of users table field
+            foreignField: "name", // name of userinfo table field
+            as: "location"         // alias for userinfo table
+        }
+    },
+    {   $unwind:"$user_info" }])
+
+
+
+//With  projection
+db.trebsqy.aggregate([
+
+    // Join with user_info table
+    {
+        $lookup:{
+            from: "locationMaster",       // other table name
+            localField: "Area.Area",   // name of users table field
+            foreignField: "name", // name of userinfo table field
+            as: "location"         // alias for userinfo table
+        }
+    },
+    {   
+        $project:{
+            _id : 1,
+            'Area.Area' :1 ,
+            Area2:"$location.name"
+        } 
+    }])
+
+
+
+php --ri grep |mongod --version
+php --ri mongodb
+
+//projection
+db.getCollection('trebsqy').find({},{'_id':1})
+
+
+
+GET /ca_project/_search?pretty&size=0
+{
+"query": {
+  "bool": {
+    "must_not": [
+      {"match": {
+        "ltype": "new-development"
+      }}
+    ]
+    
+  }
+  
+}, 
+"aggs": {
+  "ltype": {
+    "terms" : { "field":"ltype.keyword"},
+    "aggs": {
+      "County": {
+        "terms" : { "field":"state.keyword"},
+        "aggs": {
+           "countybeds": {
+                 "terms" : { "field":"beds.keyword"}
+                },
+    
+                "countybath": {
+                 "terms" : { "field":"bathroom.keyword"}
+                },
+                 "countypstype": {
+                "terms" : { "field":"pstype.keyword"}
+                },
+                "countyminprice": {
+                "min" : { "field" : "maxPrice" } 
+                },
+                "countymaxprice": {
+                "max": { "field" : "maxPrice" } 
+                },
+                "countyZip":{
+                   "terms" : { "field":"zip.keyword"}
+                      },
+          "citybased": {
+          "terms" : { "field":"city.keyword"},
+          "aggs": {
+             "cbeds": {
+                 "terms" : { "field":"beds.keyword"}
+                },
+    
+                "cbath": {
+                 "terms" : { "field":"bathroom.keyword"}
+                },
+                 "cpstype": {
+                "terms" : { "field":"pstype.keyword"}
+                },
+               "cityminprice": {
+                "min" : { "field" : "maxPrice" } 
+                },
+                "cityymaxprice": {
+                "max": { "field" : "maxPrice" } 
+                },
+                "cZip":{
+                   "terms" : { "field":"zip.keyword"}
+                      },
+          "muncipality": {
+           "terms" : { "field":"municipality.keyword"},
+            "aggs": {
+              "mucipalitybeds": {
+                 "terms" : { "field":"beds.keyword"}
+                },
+    
+                "mucipalitybath": {
+                 "terms" : { "field":"bathroom.keyword"}
+                },
+                 "muncipalitypstype": {
+                "terms" : { "field":"pstype.keyword"}
+                },
+                 "muncipalityminprice": {
+                "min" : { "field" : "maxPrice" } 
+                },
+                "muncipalitymaxprice": {
+                "max": { "field" : "maxPrice" } 
+                },
+                "MZip":{
+                   "terms" : { "field":"zip.keyword"}
+                      },
+              
+             "locality": {
+              "terms" : { "field":"locality.keyword"}
+              , "aggs": {
+                "localitybeds": {
+                 "terms" : { "field":"beds.keyword"}
+                },
+                "localitybath": {
+                 "terms" : { "field":"bathroom.keyword"}
+                },
+                 "localitypstype": {
+                "terms" : { "field":"pstype.keyword"}
+                },
+                "cityminprice": {
+                "min" : { "field" : "maxPrice" } 
+                },
+                "citymaxprice": {
+                "max": { "field" : "maxPrice" } 
+                },
+                "Zip":{
+                   "terms" : { "field":"zip.keyword"}
+                      }
+              }
+             }
+            }
+           
+          }
+          
+          }
+        }
+        
+      }
+      }
+      
+    }
+  }
+}
+
+}
+
+Url Genrator
+
+GET /ca_project/_search?pretty&size=0
+{
+"query": {
+  "bool": {
+    "must_not": [
+      {"match": {
+        "ltype": "new-development"
+      }}
+    ]
+    
+  }
+  
+}, 
+"aggs": {
+  "ltype": {
+    "terms" : { "field":"ltype.keyword"},
+    "aggs": {
+      "County": {
+        "terms" : { "field":"state.keyword"},
+        "aggs": {
+           "beds": {
+                 "terms" : { "field":"beds.keyword"}
+                },
+    
+                "bath": {
+                 "terms" : { "field":"bathroom.keyword"}
+                },
+                 "pstype": {
+                "terms" : { "field":"pstype.keyword"}
+                },
+                "minprice": {
+                "min" : { "field" : "maxPrice" } 
+                },
+                "maxprice": {
+                "max": { "field" : "maxPrice" } 
+                },
+                "zip":{
+                   "terms" : { "field":"zip.keyword"}
+                      },
+          "citybased": {
+          "terms" : { "field":"city.keyword"},
+          "aggs": {
+             "beds": {
+                 "terms" : { "field":"beds.keyword"}
+                },
+    
+                "bath": {
+                 "terms" : { "field":"bathroom.keyword"}
+                },
+                 "pstype": {
+                "terms" : { "field":"pstype.keyword"}
+                },
+               "minprice": {
+                "min" : { "field" : "maxPrice" } 
+                },
+                "maxprice": {
+                "max": { "field" : "maxPrice" } 
+                },
+                "zip":{
+                   "terms" : { "field":"zip.keyword"}
+                      },
+          "muncipality": {
+           "terms" : { "field":"municipality.keyword"},
+            "aggs": {
+              "beds": {
+                 "terms" : { "field":"beds.keyword"}
+                },
+    
+                "bath": {
+                 "terms" : { "field":"bathroom.keyword"}
+                },
+                 "pstype": {
+                "terms" : { "field":"pstype.keyword"}
+                },
+                 "minprice": {
+                "min" : { "field" : "maxPrice" } 
+                },
+                "maxprice": {
+                "max": { "field" : "maxPrice" } 
+                },
+                "zip":{
+                   "terms" : { "field":"zip.keyword"}
+                      },
+              
+             "locality": {
+              "terms" : { "field":"locality.keyword"}
+              , "aggs": {
+                "beds": {
+                 "terms" : { "field":"beds.keyword"}
+                },
+                "bath": {
+                 "terms" : { "field":"bathroom.keyword"}
+                },
+                 "pstype": {
+                "terms" : { "field":"pstype.keyword"}
+                },
+                "minprice": {
+                "min" : { "field" : "maxPrice" } 
+                },
+                "maxprice": {
+                "max": { "field" : "maxPrice" } 
+                },
+                "zip":{
+                   "terms" : { "field":"zip.keyword"}
+                      }
+              }
+             }
+            }
+           
+          }
+          
+          }
+        }
+        
+      }
+      }
+      
+    }
+  }
+}
+
+}
+//composite query
+POST /ca_project/_search?size=0
+{
+"size": 0,
+"aggs" : {
+        "Locations": {
+            "composite" : {
+                "sources" : [
+                      {
+                    "ltype": {
+        "terms" : { "field":"ltype.keyword"}
+                    
+                  }
+                    
+                  },
+                   {
+                    "County": {
+        "terms" : { "field":"state.keyword"}
+                    
+                  }
+                    
+                  },{
+                  
+                    "Area": {
+        "terms" : { "field":"city.keyword"}
+                    
+                  }
+                    
+                  },
+                  {
+                    "Municipality": {
+        "terms" : { "field":"municipality.keyword"}
+                    
+                  }
+                    
+                  },{
+                  
+                    "Locality": {
+        "terms" : { "field":"locality.keyword"}
+                    
+                  }
+                    
+                  },
+                  {"beds": {
+                 "terms" : { "field":"beds.keyword"}
+                }},{
+                "bath": {
+                 "terms" : { "field":"bathroom.keyword"}
+                }},{
+                 "pstype": {
+                "terms" : { "field":"pstype.keyword"}
+                }},{
+                 "maxprice": {
+                "terms" : { "field":"maxPrice.keyword"}
+                }},
+                {
+                 "minprice": {
+                "terms" : { "field":"minPrice.keyword"}
+                }},
+                
+                {
+                "Zip":{
+                   "terms" : { "field":"zip.keyword"}
+                      }}
+                ]
+            }
+        }
+    }
+}
+
 
 
 

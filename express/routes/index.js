@@ -1,5 +1,9 @@
 var express = require('express');
 var router = express.Router();
+//var mongoconnection=require('../connection/Mongodb');
+var solrconnection=require('../connection/SolrConfig');
+var elasconnection=require('../connection/ElasticConnection');
+var controller = require('../Controller/FetchMysql');
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
@@ -26,54 +30,41 @@ router.get('/things/:name/:id', function (req, res) {
 /**
  * pattern matching route
  */
-router.get('/things/:id([0-9]{5})', function(req, res){
-   res.send('id: ' + req.params.id);
+router.get('/things/:id([0-9]{5})', function (req, res) {
+    res.send('id: ' + req.params.id);
 });
 /*
  * middlleware
  * 
  */
 //Middleware function to log request protocol
-router.use('/things', function(req, res, next){
-   console.log("A request for things received at " + Date.now());
-   next();
+router.use('/things', function (req, res, next) {
+    console.log("A request for things received at " + Date.now());
+    next();
 });
 
 /*
  * passing data to template
  * 
  */
-router.get('/dynamic_view', function(req, res){
-   res.render('index', {
-      name: "TutorialsPoint", 
-      url:"http://www.tutorialspoint.com",
-      title:'test_page'
-   });
+router.get('/dynamic_view', function (req, res) {
+    var data = dynamic_view(req, res);
+    res.render('index',data);
 });
+function dynamic_view(req, res)
+{
+    var data = {
+        name: "TutorialsPoint",
+        url: "http://www.tutorialspoint.com",
+        title: 'Test_pages'
+    };
+    return data;
 
-//async  test(params, callBack) {
-//    var myInit = {
-//      method: 'GET',
-//      headers: {
-//        'Accept': 'application/json',
-//        'Content-Type': 'application/json'
-//      },
-//      body: JSON.stringify(params),
-//    };
-//    callBack(await callService('url', myInit));
-//  }
-//async  callService(url, params) {
-//    return new Promise((resolve, reject) => {
-//      fetch(url, params)
-//        .then((response) =>
-//          response.json()
-//        )
-//        .then((responseJson) => {
-//          resolve(responseJson);
-//        }).catch((reject) => {
-//          console.error(reject);
-//        })
-//    });
-//  }
+}
+//calling the controller
+router.get('/mysqldata',controller.author_list);
+router.get('/solr_data/:id',controller.solr_data);
+router.get('/elasticdata',controller.elastic_data);
+
 
 module.exports = router;

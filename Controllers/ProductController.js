@@ -5,7 +5,7 @@ var client = new SolrNode({
     core: 'cacore',
     protocol: 'http'
 });
-var product = {
+exports.product = {
     Home: function (req, res)
     {
         var strQuery = client.query().q('eid:C4175421');
